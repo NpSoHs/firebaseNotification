@@ -43,5 +43,5 @@ if (typeof window !== "undefined") {
     // Handle foreground notification here (you can display a notification or handle the data)
   });
 }
-
+ 
 export { database, messaging };
