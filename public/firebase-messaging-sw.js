@@ -23,11 +23,27 @@ messaging.onBackgroundMessage((payload) => {
     payload
   );
   // Customize notification here
-  const notificationTitle = payload.notification.title;
+  const notificationTitle = payload.notification.title + "on Background";
   const notificationOptions = {
-    body: payload.notification.title,
-    icon: '/firebase-logo.png'
+    body: payload.notification.body+"  On Background ja",
+    icon: '/firebase-logo.png',
+    data: {
+      url: "https://firebase-notification-inky.vercel.app/" // URL ที่จะเปิดเมื่อกดการแจ้งเตือน
+    }
   };
-
   self.registration.showNotification(notificationTitle, notificationOptions);
+});
+
+self.addEventListener('notificationclick', function(event) {
+  console.log('Notification click received:', event);
+
+  // กำหนดให้เมื่อคลิกที่การแจ้งเตือน, เปิดหน้าเว็บ
+  const url = event.notification.data.url; // รับ URL จาก data ที่ตั้งไว้
+  console.log(event.notification.data.url);
+  event.notification.close(); // ปิดการแจ้งเตือน
+
+  // เปิดหน้าเว็บในแท็บใหม่ (หรือในหน้าเดียวกันก็ได้)
+  event.waitUntil(
+    clients.openWindow(url) // เปิด URL ที่กำหนด
+  );
 });
