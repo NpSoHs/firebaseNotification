@@ -128,7 +128,7 @@ const DoorBellSection = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer ya29.a0AeDClZAUoEDGPLToenjDcEMP9qe0x58KkfKSq6AB8rdSGEfdOWfi3B8AYgZnOTp60NRxIXf6fGOnxtKarmcobNHLXwxjpIerZE8WYNAoT3YLAxPISbCGuCrEF_StNCyn5sTlSGMD1Vabbmg6GGbpPp0WRIb_xFAV7jQNLz5QaCgYKAegSARESFQHGX2MiRExUwYiA4f8JwbNbicp4iQ0175", // ใช้ server key ที่ได้จาก Firebase Console
+          Authorization: "Bearer ya29.a0AeDClZDYyYaqpAith_ctlqkB8ctgj3jqwASc2vaoiBEV_d-fRnYDwf81GZqJxBZwwZIl4inIwW9j6agkUyWPr5YAAwLqnBh6a1B8jAN5expVuXebov93fPqCZbrRa6VgpO-Yc6aW49AmXC5m1d4NdNiE5dzjt_uwPzakneWYaCgYKAcYSARESFQHGX2MiO8V5nYtZb0mXWwxww06klw0175", // ใช้ server key ที่ได้จาก Firebase Console
         },
         body: JSON.stringify({
           message: {
