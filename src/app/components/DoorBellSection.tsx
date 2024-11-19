@@ -5,11 +5,16 @@ import { ref, set, onValue } from "firebase/database"; // นำเข้า Fir
 import { messaging } from "../firebaseConfig"; // นำเข้าการตั้งค่า Firebase Messaging
 import { getToken, onMessage } from "firebase/messaging"; // ฟังก์ชันที่ใช้ในการรับ token และการรับการแจ้งเตือน
 
+interface INotification {
+  name:String
+}
+
 const DoorBellSection = () => {
   const [photoUrl, setPhotoUrl] = useState<string>("");
   const [lockStatus, setLockStatus] = useState<string>("");
   const [notification, setNotification] = useState<string>("");
   const [fcmToken, setFcmToken] = useState<string>("");
+  const [notificationData, setNotificationData] = useState<INotification>({name:""});
   const vapidId = "BKc2uSJZG-784Zf6M8rf_n4cBHTFHkmL1O9lwYU7PKjq546cs8-mqtL88Lutp102KdCLe9cVrwNfOUbIYyt0tDc";
 
   const getNotificationPermission = async () => {
@@ -136,7 +141,11 @@ const DoorBellSection = () => {
         }),
       })
         .then((response) => response.json())
-        .then((data) => console.log("FCM Notification sent", data))
+        .then((data) => {
+          const randomNum = Math.floor(Math.random() * 100);
+          console.log("FCM Notification sent", data)
+          setNotificationData({...data,["name"]:data.name + randomNum})
+        })
         .catch((error) => console.error("Error sending FCM notification", error));
     }
   };
@@ -147,7 +156,7 @@ const DoorBellSection = () => {
   }, []);
 
   return (
-    <div className="container mx-auto">
+    <div className="w-11">
       <h1>Realtime Firebase with Next.js</h1>
       <div className="flex gap-4">
         <button
@@ -170,21 +179,31 @@ const DoorBellSection = () => {
         </button>
       </div>
 
-      {photoUrl && (
-        <div>
-          <h2>Photo URL</h2>
-          <img src={photoUrl} alt="Captured Photo" />
-        </div>
-      )}
+      <div className="flex flex-col text-wrap w-fit">
+        {photoUrl && 
+          (<div>
+            Photo URL
+            <img src={photoUrl} alt="Captured Photo" />
+          </div>
+        )}
 
-      <div>
-        <h2>Lock Status: {lockStatus}</h2>
-      </div>
-      <div>
-        <h2>Notification: {notification}</h2>
-      </div>
-      <div>
-        <h2>token = {fcmToken}</h2>
+          <div>
+            Lock Status: {lockStatus}
+          </div>
+
+          <div>
+            Notification: {notification}
+          </div>
+
+          <div className="text-wrap w-screen token-container break-words">
+            Token: {fcmToken || "No token available"}
+          </div>
+
+          <div>
+            Notification: {notificationData.name}
+          </div>
+
+
       </div>
     </div>
   );
