@@ -4,6 +4,7 @@ import { database } from "../firebaseConfig"; // นำเข้าการต�
 import { ref, set, onValue } from "firebase/database"; // นำเข้า Firebase SDK สำหรับ Realtime Database
 import { messaging } from "../firebaseConfig"; // นำเข้าการตั้งค่า Firebase Messaging
 import { getToken, onMessage } from "firebase/messaging"; // ฟังก์ชันที่ใช้ในการรับ token และการรับการแจ้งเตือน
+import { AccessTokenResponse, getAccessToken } from "../api/route";
 
 interface INotification {
   name:String
@@ -119,16 +120,34 @@ const DoorBellSection = () => {
     }, 3000);
   };
 
-  const sendNotification = () => {
+  const getAccessTokenFromApi = async () => {
+    try {
+      const response = await fetch("/api"); // เรียก API ที่เราได้สร้างไว้
+      const data = await response.json();
+      console.log("this is data", data);
+      return data; // คืนค่า access token ที่ได้จาก API
+    } catch (error) {
+      console.error("Error fetching access token:", error);
+      return null;
+    }
+  };
+
+  const sendNotification = async() => {
     const notificationRef = ref(database, "/notification");
     set(notificationRef, "Someone Arrived");
   
     if (fcmToken) {
+      const accessTokenRes:AccessTokenResponse = await getAccessTokenFromApi();
+      if(!accessTokenRes.success){
+        console.error("Error getting access token:", accessTokenRes.error);
+        return;
+      }
+      console.log("Access Token:", accessTokenRes.accessToken);
       fetch("https://fcm.googleapis.com/v1/projects/smartdoorbell-49fd1/messages:send", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer ya29.a0AeDClZDYyYaqpAith_ctlqkB8ctgj3jqwASc2vaoiBEV_d-fRnYDwf81GZqJxBZwwZIl4inIwW9j6agkUyWPr5YAAwLqnBh6a1B8jAN5expVuXebov93fPqCZbrRa6VgpO-Yc6aW49AmXC5m1d4NdNiE5dzjt_uwPzakneWYaCgYKAcYSARESFQHGX2MiO8V5nYtZb0mXWwxww06klw0175", // ใช้ server key ที่ได้จาก Firebase Console
+          Authorization: `Bearer ${accessTokenRes.accessToken}`, // ใช้ server key ที่ได้จาก Firebase Console
         },
         body: JSON.stringify({
           message: {

@@ -9,7 +9,7 @@
 !.yarn/plugins
 !.yarn/releases
 !.yarn/versions
-
+/src/app/api/service-account.json
 # testing
 /coverage
 
