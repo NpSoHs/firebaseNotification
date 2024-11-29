@@ -4,13 +4,13 @@ import { onMessage } from 'firebase/messaging';
 import { getMessaging } from 'firebase/messaging/sw';
 // Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyC0Pp8bt8ASUbf0EVJ4iVhXpymI-dxVIQc",
-  authDomain: "smartdoorbell-49fd1.firebaseapp.com",
-  databaseURL: "https://smartdoorbell-49fd1-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "smartdoorbell-49fd1",
-  storageBucket: "smartdoorbell-49fd1.firebasestorage.app",
-  messagingSenderId: "163361561997",
-  appId: "1:163361561997:web:3d248b9e5380ac0cfff1c4"
+  apiKey: "AIzaSyCmxKXgOdnnPvPsxOWc_fYRXjqkka7sjqs",
+  authDomain: "smartdoorbell-f9359.firebaseapp.com",
+  databaseURL: "https://smartdoorbell-f9359-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "smartdoorbell-f9359",
+  storageBucket: "smartdoorbell-f9359.firebasestorage.app",
+  messagingSenderId: "974346063979",
+  appId: "1:974346063979:web:2695b2fd11063aeb2de12e"
 };
 // Initialize Firebase using the modular approach
 const app = initializeApp(firebaseConfig);

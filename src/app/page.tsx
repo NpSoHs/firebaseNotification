@@ -1,5 +1,5 @@
 import Image from "next/image";
-import DoorBellSection from "./components/DoorBellSection";
+import DoorBellSection from "../components/DoorBellSection";
 
 export default function Home() {
   return (
