@@ -23,16 +23,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${jessey.className} antialiased`}
-      >
-        <div className="bg-black h-screen flex flex-col max-h-screen">
-          <div className="bg-[#D6D6D6] flex justify-center font-light text-black text-4xl text-center items-center py-4 h-[30vh]">
-              Smart Door Bell
+      <body className={`${jessey.className} antialiased`}>
+        <div className="bg-black min-h-screen flex flex-col">
+          <div className="bg-[#D6D6D6] flex justify-center font-light text-black text-xl sm:text-2xl lg:text-4xl text-center items-center py-4 md:h-[15vh] h-[10vh]">
+            Smart Door Bell
           </div>
           <div className="flex-grow">{children}</div>
-      </div>
+        </div>
       </body>
     </html>
   );
 }
+
