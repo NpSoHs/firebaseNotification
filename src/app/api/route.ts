@@ -20,7 +20,7 @@ export interface IAccessTokenResponse {
 /**
  * Handle GET requests.
  */
-export async function GET(req: NextApiRequest) {
+export async function GET(req: Request) {
   try {
     console.log("GET /api/getServerFirebaseToken");
     const accessToken = await getAccessToken();
