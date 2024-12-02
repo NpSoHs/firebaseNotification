@@ -7,8 +7,8 @@ import { useEffect, useState } from "react";
 const TakePhotoButton = () => {
     const takePhoto = () => {
         const randomNum = Math.floor(Math.random() * 50000);
-        const photoUrl = `http://localhost:3000/capture?_cb=${randomNum}`;
-        const photoUrlRef = ref(database, "/photoUrl");
+        const photoUrl = `http://192.168.1.196/capture?_cb=${randomNum}`;
+        const photoUrlRef = ref(database, "/doorbell/photoResponse");
         set(photoUrlRef, photoUrl);
     };
     return (
